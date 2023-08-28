@@ -30,18 +30,37 @@ app.use((req, res, next) => {
   //method override Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it.
   app.use(methodOverride('_method'))
 
+//Routes
+
+  //Index
+  app.get("/",  (req, res)=> {
+  
+  res.render("Index")
+});
+
 
   //New
-  app.get('/', (req, res)=>{
+  app.get('/new', (req, res)=>{
     res.render('New')
   })
 
   //Create
-  app.post('/',  async (req, res)=>{
-    const newView = await View.create
+  app.post('/', (req, res)=>{
     console.log("the created view", req.body);
     res.send('received')
   })
+
+//Show
+app.get("/:id",  (req, res) => {
+  res.render("Show");
+});
+
+
+//DELETE
+app.delete('/:id', (req, res)=>{
+ 
+  res.redirect('/')
+})
 
 
   app.listen(3000, (req, res) => {
