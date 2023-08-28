@@ -2,6 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const methodOverride = require('method-override')
+const mongoose = require('mongoose')
+
+// Setting up the view engine
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
 
 // CONNECT WITH MONGOOSE
 mongoose.connect(process.env.MONGO_URI, {
@@ -27,5 +33,18 @@ app.use((req, res, next) => {
 
   //New
   app.get('/', (req, res)=>{
-    
+    res.render('New')
   })
+
+  //Create
+  app.post('/',  async (req, res)=>{
+    const newView = await View.create
+    console.log("the created view", req.body);
+    res.send('received')
+  })
+
+
+  app.listen(3000, (req, res) => {
+    console.log("listening");
+  });
+  
